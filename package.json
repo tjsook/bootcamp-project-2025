@@ -1,0 +1,24 @@
+{
+  "name": "tjsook.github.io",
+  "version": "1.0.0",
+  "description": "This is a personal website built using the Hack4Impact Starter Pack <br> <Description of website: WIP> [Visit website here](https://tjsook.github.io/index.html)",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjsook/tjsook.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tjsook/tjsook.github.io/issues"
+  },
+  "homepage": "https://github.com/tjsook/tjsook.github.io#readme",
+  "dependencies": {
+    "typescript": "^5.9.3"
+  }
+}
