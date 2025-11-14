@@ -1,16 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Blog } from "@/app/blogData"; // importing the type/interface we defined
+import { Blog } from "@/database/blogSchema";
 import style from "./blogPreview.module.css";
 
-// Pass your props into the component here ...
 export default function BlogPreview(props: Blog) {
   return (
     <Link href={`/blog/${props.slug}`} className="blog-link">
       <div className={style.div}>
         <h1 className="blog-title">{props.title}</h1>
-        <p className="blog-date">{props.date}</p>
+        <p className="blog-date">{new Date(props.date).toLocaleDateString()}</p>
         <div>
           <Image
             src={props.image}
