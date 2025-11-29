@@ -52,3 +52,50 @@ export async function GET(req: NextRequest, { params }: IParams) {
     return NextResponse.json({ error: "Blog not found." }, { status: 404 });
   }
 }
+
+/**
+ * POST endpoint for adding comments to a blog post
+ * Expects a JSON body with { user: string, comment: string }
+ */
+export async function POST(req: NextRequest, { params }: IParams) {
+  await connectDB();
+  const { slug } = params;
+
+  try {
+    // Parse the request body to get comment data
+    const body = await req.json();
+    const { user, comment } = body;
+
+    // Validate input
+    if (!user || !comment) {
+      return NextResponse.json(
+        { error: "User and comment are required." },
+        { status: 400 }
+      );
+    }
+
+    // Find the blog post and add the comment
+    const blog = await blogSchema
+      .findOneAndUpdate(
+        { slug },
+        {
+          $push: {
+            comments: {
+              user,
+              comment,
+              time: new Date(),
+            },
+          },
+        },
+        { new: true } // Return the updated document
+      )
+      .orFail();
+
+    return NextResponse.json(blog, { status: 201 });
+  } catch (err) {
+    return NextResponse.json(
+      { error: "Failed to add comment or blog not found." },
+      { status: 404 }
+    );
+  }
+}

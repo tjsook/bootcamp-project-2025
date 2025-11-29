@@ -1,5 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 
+// Type for individual comment
+export type IComment = {
+  user: string;
+  comment: string;
+  time: Date;
+};
+
 export type Blog = {
   title: string;
   slug: string;
@@ -8,6 +15,7 @@ export type Blog = {
   content: string; // text content for individual blog page
   image: string; // url for string in public
   imageAlt: string; // alt for image
+  comments: IComment[]; // array of comments
 };
 
 const blogSchema = new Schema<Blog>({
@@ -18,6 +26,13 @@ const blogSchema = new Schema<Blog>({
   image: { type: String, required: true },
   imageAlt: { type: String, required: true, alias: "image_alt" },
   content: { type: String, required: true },
+  comments: [
+    {
+      user: { type: String, required: true },
+      comment: { type: String, required: true },
+      time: { type: Date, required: true, default: new Date() },
+    },
+  ],
 });
 
 blogSchema.set("toJSON", { virtuals: true, aliases: true });

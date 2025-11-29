@@ -3,6 +3,8 @@ import Image from "next/image";
 import connectDB from "@/database/db";
 import BlogModel from "@/database/blogSchema";
 import { notFound } from "next/navigation";
+import Comment from "@/components/comment";
+import CommentSectionWrapper from "@/components/commentSectionWrapper";
 
 interface BlogPostProps {
   params: Promise<{
@@ -55,6 +57,27 @@ export default async function BlogPost({ params }: BlogPostProps) {
               <p key={index}>{paragraph}</p>
             ))}
         </div>
+
+        {/* Comments Section */}
+        <section className="comments-section">
+          <h2 className="comments-title">
+            Comments ({blog.comments?.length || 0})
+          </h2>
+          <div className="comments-list">
+            {blog.comments && blog.comments.length > 0 ? (
+              blog.comments.map((comment: any, index: number) => (
+                <Comment key={index} comment={comment} />
+              ))
+            ) : (
+              <p className="no-comments">
+                No comments yet. Be the first to comment!
+              </p>
+            )}
+          </div>
+
+          {/* Comment Form */}
+          <CommentSectionWrapper slug={resolvedParams.slug} />
+        </section>
       </article>
     </main>
   );
