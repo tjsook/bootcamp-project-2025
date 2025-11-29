@@ -58,7 +58,6 @@ export default async function BlogPost({ params }: BlogPostProps) {
             ))}
         </div>
 
-        {/* Comments Section */}
         <section className="comments-section">
           <h2 className="comments-title">
             Comments ({blog.comments?.length || 0})
@@ -75,7 +74,6 @@ export default async function BlogPost({ params }: BlogPostProps) {
             )}
           </div>
 
-          {/* Comment Form */}
           <CommentSectionWrapper slug={resolvedParams.slug} />
         </section>
       </article>

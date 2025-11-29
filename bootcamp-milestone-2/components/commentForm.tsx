@@ -7,10 +7,6 @@ type CommentFormProps = {
   onCommentAdded: () => void;
 };
 
-/**
- * CommentForm component allows users to submit new comments
- * This is a client component that handles form submission via the API
- */
 export default function CommentForm({
   slug,
   onCommentAdded,
@@ -27,7 +23,6 @@ export default function CommentForm({
     setSuccess(false);
     setIsSubmitting(true);
 
-    // Validate input
     if (!user.trim() || !comment.trim()) {
       setError("Please fill in both fields.");
       setIsSubmitting(false);
@@ -50,12 +45,9 @@ export default function CommentForm({
         throw new Error("Failed to submit comment");
       }
 
-      // Success! Clear form and show success message
       setUser("");
       setComment("");
       setSuccess(true);
-
-      // Call the callback to refresh the page/comments
       onCommentAdded();
     } catch (err) {
       setError("Failed to submit comment. Please try again.");
